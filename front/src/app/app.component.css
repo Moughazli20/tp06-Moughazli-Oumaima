@@ -1,0 +1,87 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #fff; /* Fond blanc */
+  color: #333;
+  margin: 0;
+}
+
+.search-bar {
+  background-color: #000; /* Noir */
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.netflix-input {
+  background-color: #fff;
+  border: 1px solid #000; /* Bordure noire */
+  color: #000; /* Texte noir */
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  width: 60%;
+  transition: border-color 0.3s ease;
+}
+
+.netflix-input:focus {
+  border-color: #fff; /* Bordure blanche au focus */
+}
+
+.search-icon {
+  margin-right: 10px;
+  color: #fff;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.product-item {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px 8px 0 0;
+}
+
+.movie-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #000;
+}
+
+.custom-button {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 0 0 8px 8px;
+  border: none;
+  box-shadow: none;
+  margin-top: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  background-color: #333; /* Gris foncé au survol */
+}
