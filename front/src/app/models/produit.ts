@@ -1,5 +1,6 @@
 export class Produit {
+  image: string = '';
   ref: string = '';
-  titre: string = '';
+  title: string = '';
   prix: number = 0;
 }

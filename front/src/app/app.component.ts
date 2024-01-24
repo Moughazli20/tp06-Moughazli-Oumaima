@@ -1,17 +1,18 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable, fromEvent, of } from 'rxjs';
 import { Produit } from './models/produit';
 import { startWith, map, distinctUntilChanged, debounceTime, switchMap, catchError } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { PanierService } from './panier.service';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit {
   afficherPanier: boolean = false;
   afficherCatalogue: boolean = false;
   totalPanier: number | null = null;
@@ -23,15 +24,22 @@ export class AppComponent implements AfterViewInit {
   password: string = '';
   nom: string = '';
   prenom: string = '';
+  adresse: string = '';
+  codePostal: string = '';
+  ville: string = '';
+  sexe: string = '';
+  telephone: string = '';
+  email: string = '';
   cnx: boolean = false;
+  errorMessage: string = '';
+  InscrerrorMessage: string = '';
   produits$: Observable<Array<Produit>>;
   searchControl = new FormControl();
   searchFailed: boolean = false;
   articleAjoute: boolean = false;
   ajoutConfirmation: Map<Produit, boolean> = new Map();
-  email: string = '';
-  afficherInscription: boolean = false;
   
+  afficherInscription: boolean = false;
 
   constructor(private apiService: ApiService, private panierService: PanierService) {
     this.produits$ = this.apiService.getCatalogue();
@@ -44,14 +52,15 @@ export class AppComponent implements AfterViewInit {
   basculerInscription() {
     this.afficherInscription = !this.afficherInscription;
   }
+
   obtenirArticles() {
     return this.panierService.obtenirArticles();
   }
-  
+
   supprimerDuPanier(index: number) {
     this.panierService.supprimerDuPanier(index);
   }
-  
+
   viderPanier() {
     this.panierService.viderPanier();
   }
@@ -62,48 +71,67 @@ export class AppComponent implements AfterViewInit {
     setTimeout(() => this.ajoutConfirmation.set(produit, false), 3000);
   }
 
-
-  
-ngOnInit() {
-  this.produits$ = this.searchControl.valueChanges.pipe(
-    startWith(''), // Démarre avec une chaîne vide pour charger tous les produits initialement
-    debounceTime(300),
-    switchMap(value => value ? this.apiService.getSearchCatalogue(value) : this.apiService.getCatalogue()),
-    catchError(() => of([])) // En cas d'erreur, retourne un tableau vide
-  );
-}
-  connexion() {
-      this.apiService.loginClient(this.login, this.password).subscribe((client) => {
-      this.nom = client.nom;
-      this.prenom = client.prenom;
-      this.cnx = true;
-    });
+  ngOnInit() {
+    this.produits$ = this.searchControl.valueChanges.pipe(
+      startWith(''),
+      debounceTime(300),
+      switchMap(value => value ? this.apiService.getSearchCatalogue(value) : this.apiService.getCatalogue()),
+      catchError(() => of([]))
+    );
   }
 
+  connexion() {
+    this.apiService.loginClient(this.login, this.password).subscribe(
+      (client) => {
+        this.nom = client.nom;
+        this.prenom = client.prenom;
+        this.cnx = true;
+      },
+      (error) => {
+        console.error('Erreur de connexion:', error);
+        this.cnx = false;
+        this.errorMessage = "Login ou Mot de passe incorrect !!";
+      }
+    );
+  }
 
   inscription() {
-  this.apiService.inscrireClient(this.nom, this.prenom,this.email,this.password).subscribe({
+    // Check if required fields are filled
+  if (!this.nom || !this.prenom || !this.login || !this.password) {
+    this.InscrerrorMessage = "Veuillez remplir tous les champs obligatoires";
+    return;
+  }
+
+  // Call the API service for inscription
+  this.apiService.inscrireClient(this.nom, this.prenom, this.email, this.password, this.adresse, this.codePostal, this.ville, this.sexe, this.login, this.telephone).subscribe({
     next: (response) => {
       console.log('Inscription réussie:', response);
       this.afficherInscription = false;
       this.cnx = true;
       this.nom = response.nom;
       this.prenom = response.prenom;
+      this.adresse = response.adresse;
+      this.codePostal = response.codePostal;
+      this.ville = response.ville;
+      this.sexe = response.sexe;
+      this.login = response.login;
+      this.telephone = response.telephone;
+    },
+    error: (err) => {
+      console.error('Erreur d’inscription:', err);
+      this.errorMessage = "Erreur lors de l'inscription. Veuillez réessayer.";
     }
   });
-}
+  }
 
-calculerEtAfficherTotalPanier() {
-  let totalTemporaire = 0; // Utilisez une variable locale temporaire
-  const articles = this.obtenirArticles();
-  articles.forEach(article => {
-    totalTemporaire += article.prix; // Additionner les prix sur la variable locale
-  });
-  this.totalPanier = totalTemporaire; // Affectez le total temporaire à totalPanier
-}
-
-  
-
+  calculerEtAfficherTotalPanier() {
+    let totalTemporaire = 0;
+    const articles = this.obtenirArticles();
+    articles.forEach(article => {
+      totalTemporaire += article.prix;
+    });
+    this.totalPanier = totalTemporaire;
+  }
 
   searchProducts(searchTerm: string) {
     if (!searchTerm) {
@@ -112,9 +140,6 @@ calculerEtAfficherTotalPanier() {
       this.produits$ = this.apiService.getSearchCatalogue(searchTerm);
     }
   }
-
- 
-
 
   ngAfterViewInit() {
     this.searchField$ = fromEvent(this.input.nativeElement, 'keyup').pipe(

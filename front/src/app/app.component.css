@@ -1,0 +1,303 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+}
+
+.alternative-homepage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5; /* Light gray background */
+}
+
+.welcome-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.welcome-message {
+  font-size: 2.5rem;
+  color: #3498db; 
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Text shadow for emphasis */
+}
+
+.button-container {
+  margin-top: 30px;
+}
+
+.additional-content {
+  margin-top: 30px;
+}
+
+.additional-content p {
+  font-size: 1.2rem;
+  color: #555; 
+  text-align: center;
+}
+
+.center-buttons {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction:row;
+  margin-left: 30px;
+}
+
+
+
+.additional-content img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+  margin-top: 20px;
+}
+
+
+.welcome-message {
+  font-size: 1.8em;
+  text-align: center;
+  color: #333;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #000000;
+  text-align: left; 
+  display: block; 
+  margin-bottom: 8px; 
+}
+
+.netflix-input {
+  width: 80%; 
+  max-width: 600px;
+  margin: 0 auto; 
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 15px;
+  display: block; 
+  margin-left: auto;
+}
+
+.main-nav {
+ 
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+}
+
+
+.nav-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-link {
+  text-decoration: none;
+  color: #000000;
+  padding: 10px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin: 0 10px;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out;
+  font-weight: bold;
+  align-items: right;
+}
+
+.movie-name {
+  font-weight: bold;
+}
+
+.custom-link:hover {
+  background-color: #cff8d0;
+  border-radius: 15px;
+  text-decoration: none;
+}
+
+.input-modern{
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 2px solid #ddd;
+  border-radius: 15px;
+}
+
+
+.custom-button,
+.custom-button2,
+.custom-button3 {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 14px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.custom-button:hover,
+.custom-button2:hover,
+.custom-button3:hover {
+  background-color: #45a049;
+}
+
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.div-panier {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.payment-message {
+  font-size: 1.5rem;
+  color: #f1f4f7; 
+  font-weight: bold;
+  background-color: #2c3e50; 
+  padding: 10px;
+  border-radius: 15px;
+  text-align: center;
+  margin: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+.product-item {
+  border: 2px solid #ddd;
+  border-radius: 15px;
+  padding: 16px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+
+.message-ajout {
+  margin-top: 20px;
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.inscription-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inscription-form {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+}
+.error-message {
+  color: #721c24; 
+  background-color: #f8d7da; 
+  border: 1px solid #f5c6cb; 
+  padding: 10px; 
+  margin-top: 10px; 
+  border-radius: 15px; 
+  text-align: center;
+}
+
+.inscription-title {
+  text-align: center;
+  color: #333;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-modern {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.custom-button3 {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-button3:hover {
+  background-color: #45a049;
+}
+
+.custom-button {
+  padding: 15px 30px;
+  font-size: 1.3rem;
+  color: #fff;
+  background-color: #27ae60; 
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  background-color: #219d54; 
+}
+
+.custom-buttonPanier {
+
+  justify-content: center;
+  max-width: 300px; 
+  background-color: #219d54;
+}
+
+.custom-buttonPanier {
+  margin: 10px; 
+}

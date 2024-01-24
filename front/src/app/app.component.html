@@ -1,0 +1,127 @@
+<html>
+  <body>
+    <nav *ngIf="cnx && afficherCatalogue" class="main-nav">
+      <div class="nav-center">
+        <a href="#" class="custom-link" (click)="afficherPanier = false">Catalogue</a>
+        <a href="#" class="custom-link" (click)="basculerPanier()">Panier</a>
+      </div>
+    </nav>
+
+    <div *ngIf="!cnx && !afficherInscription" class="login-form-container">
+      <div class="login-form">
+        <h1 class="login-title">Connexion</h1>
+        <form>
+          <label class="form-label" for="login">Login :</label>
+          <input class="input-modern" [(ngModel)]="login" name="login" /><br />
+          <label class="form-label" for="password">Password :</label>
+          <input class="input-modern" [(ngModel)]="password" type="password" name="password" /><br />
+          <br>
+          <button class="custom-button2" (click)="connexion()">Connexion</button>
+          <br><br>
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+          
+          <br><br>
+          <a class="custom-link centered-link" (click)="basculerInscription()">Inscrivez-vous</a>
+        </form>  
+      </div>
+    </div>
+
+    <div *ngIf="!cnx && afficherInscription" class="inscription-form-container">
+      <div class="inscription-form">
+        <h1 class="inscription-title">Inscription</h1>
+        <form>
+          <div *ngIf="InscrerrorMessage" class="error-message">
+            {{ InscrerrorMessage }}
+          </div>
+          <br /><br />
+          <label for="nom">Nom* :</label>
+          <input class="input-modern" [(ngModel)]="nom" name="nom" /><br />
+    
+          <label for="prenom">Prénom* :</label>
+          <input class="input-modern" [(ngModel)]="prenom" name="prenom" /><br />
+          
+          <label for="adresse">Adresse :</label>
+          <input class="input-modern" [(ngModel)]="adresse" name="adresse" /><br />
+
+          <label for="codePostal">Code Postal :</label>
+          <input class="input-modern" [(ngModel)]="codePostal" name="codePostal" /><br />
+    
+          <label for="ville">Ville :</label>
+          <input class="input-modern" [(ngModel)]="ville" name="ville" /><br />
+
+          <label for="email">Email :</label>
+          <input class="input-modern" [(ngModel)]="email" type="email" name="email" /><br />
+    
+          <label for="sexe">Sexe :</label>
+          <select class="input-modern" [(ngModel)]="sexe" name="sexe">
+            <option value="homme">Homme</option>
+            <option value="femme">Femme</option>
+          </select><br />
+
+          <label for="login">Login* :</label>
+          <input class="input-modern" [(ngModel)]="login" name="login" /><br />
+          
+          <label for="password">Mot de passe* :</label>
+          <input class="input-modern" [(ngModel)]="password" type="password" name="password" /><br />
+
+          <label for="telephone">Téléphone :</label>
+          <input class="input-modern" [(ngModel)]="telephone" name="telephone" /><br />
+
+          <button class="custom-button3" (click)="inscription()">S'inscrire</button>
+        </form>
+        <button class="custom-button3" (click)="afficherInscription = false; connexion()">Connexion</button>
+      </div>
+    </div>
+
+    <div *ngIf="cnx && !afficherCatalogue" class="alternative-homepage">
+      <div class="welcome-container">
+        <p class="welcome-message">Bienvenue {{ nom }} {{ prenom }}</p>
+      </div>
+      <div class="button-container">
+        <button class="custom-button" (click)="afficherCatalogue = true">Afficher le Catalogue</button>
+      </div>
+    </div>
+
+    <div *ngIf="cnx && !afficherPanier && afficherCatalogue" >
+    <br>
+
+      <input #inputSearch type="text" class="netflix-input" placeholder="Recherche..." (input)="searchProducts(inputSearch.value)" />
+      
+      <div *ngIf="searchFailed">Désolé, les produits ne peuvent pas être chargés.</div>
+      <br>
+      <div class="product-grid">
+        <div *ngFor="let produit of produits$ | async" class="product-item">
+          <img class="product-image" [src]="produit.image" alt="{{ produit.title }}" />
+          <p class="movie-name">{{ produit.title }}</p><p>{{ produit.prix }} €</p>
+          <button class="custom-button" (click)="ajouterAuPanier(produit)">Ajouter au Panier</button>
+          <div *ngIf="ajoutConfirmation.get(produit)" class="message-ajout">Article ajouté au panier !</div>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="cnx && afficherPanier" >
+      <p class="welcome-message">Mon Panier</p>
+      <div *ngIf="totalPanier !== null">
+        <br>
+        <p class="payment-message">Total à payer : {{ totalPanier }} €</p>
+      </div>
+      <div class="div-panier">
+      <div *ngFor="let article of obtenirArticles(); let i = index"  class="product-item">
+        <div class="cart-item">
+        <img class="product-image" [src]="article.image" alt="{{ article.title }}" />
+        <p class="movie-name">{{ article.title }}</p><p>{{ article.prix }} €</p>
+        <button class="custom-button" (click)="supprimerDuPanier(i)">Supprimer</button>
+      </div>
+      </div>
+    </div>
+    <br>
+    <div class="center-buttons">
+      <button class="custom-button custom-buttonPanier" (click)="viderPanier()">Vider le Panier</button>
+      <button class="custom-button custom-buttonPanier" (click)="calculerEtAfficherTotalPanier()">Payer</button>
+    </div>
+      <br> 
+    </div>
+  </body>
+</html>

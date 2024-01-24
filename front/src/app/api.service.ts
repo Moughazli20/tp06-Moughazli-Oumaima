@@ -26,12 +26,20 @@ export class ApiService {
     );
   }
 
-  public inscrireClient(nom: string, prenom: string, email: string, password: string): Observable<any> {
+  public inscrireClient(nom: string, prenom: string, email: string, password: string,
+    adresse: string, codePostal: string, ville: string, sexe: string,
+    login: string, telephone: string): Observable<any> {
     const data = {
       nom: nom,
       prenom: prenom,
       email: email,
-      password: password
+      password: password,
+      adresse: adresse,
+      codePostal: codePostal,
+      ville: ville,
+      sexe: sexe,
+      login: login,
+      telephone: telephone
     };
     return this.http.post<any>(environment.backendInscriptionUrl, data);
   }
@@ -42,6 +50,6 @@ export class ApiService {
 
   public getSearchCatalogue(searchTerm: string): Observable<Produit[]> {
     const url = `${environment.backendSearchCatalogue}?filtre=${searchTerm}`;
-    return this.http.get<Produit[]>(url);  // Ajout du paramètre de recherche à l'URL
+    return this.http.get<Produit[]>(url);  
   }
 }
